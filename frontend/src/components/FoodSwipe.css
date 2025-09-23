@@ -1,0 +1,234 @@
+/* Reset básico para ocupar a viewport inteira */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* Página base centralizada; 100svh lida melhor com barras do mobile */
+.fs-page {
+  position: relative;
+  height: 100svh; /* pode trocar por 100vh */
+  width: 100%;
+  background: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* evita scroll por causa das animações */
+  touch-action: pan-y;
+}
+
+/* Header fixo com o nome do app */
+.fs-header {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Pacifico', cursive; /* troque se quiser outra */
+  font-size: 42px;
+  color: #ff4757;
+  text-shadow: 0 2px 6px rgba(0,0,0,.25);
+  z-index: 10;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Container central absoluto */
+.fs-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -52%); /* leve ajuste para header/nav */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  width: min(92vw, 420px);
+}
+
+/* Área da pilha de cartas */
+.fs-stack {
+  position: relative;
+  width: 100%;
+  height: clamp(380px, 62vh, 640px);
+  pointer-events: none;
+}
+
+/* Carta base */
+.card {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  overflow: hidden;
+  will-change: transform;
+  transition: transform 180ms ease-out;
+  z-index: 3;
+  pointer-events: auto;
+  touch-action: none;
+}
+
+/* Próximas cartas ao fundo */
+.card--ghost {
+  filter: blur(1px) brightness(.92);
+  transform: scale(.96) translateY(6px);
+  z-index: 1;
+  pointer-events: none;
+}
+.card--depth1 { transform: scale(.95) translateY(12px); opacity: .95; z-index: 1; }
+.card--depth2 { transform: scale(.92) translateY(20px); opacity: .9;  z-index: 0; }
+
+/* Gradiente inferior e título */
+.card__grad {
+  position: absolute;
+  left: 0; right: 0; bottom: 0; height: 45%;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.6) 60%, rgba(0,0,0,.9) 100%);
+  pointer-events: none;
+}
+.card__title {
+  position: absolute;
+  left: 16px; bottom: 16px;
+  margin: 0;
+  color: #fff;
+  font: 600 22px/1.2 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+  letter-spacing: .2px;
+  text-shadow: 0 2px 8px rgba(0,0,0,.5);
+  pointer-events: none;
+}
+
+/* Badges estilo Tinder */
+.badge {
+  position: absolute;
+  top: 16px;
+  padding: 8px 14px;
+  border: 4px solid;
+  border-radius: 8px;
+  font: 700 18px/1 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  letter-spacing: 2px;
+  color: #fff;
+  background: transparent;
+  opacity: 0;
+  transform-origin: center;
+  text-shadow: 0 2px 6px rgba(0,0,0,.35);
+  pointer-events: none;
+}
+.badge--like {
+  left: 16px;
+  border-color: #2ecc71;
+  color: #2ecc71;
+  transform: rotate(-18deg);
+}
+.badge--nope {
+  right: 16px;
+  border-color: #ff6b6b;
+  color: #ff6b6b;
+  transform: rotate(18deg);
+}
+.badge--super {
+  left: 50%;
+  transform: translateX(-50%);
+  top: 10%;
+  border-color: #1da1f2;
+  color: #1da1f2;
+}
+
+/* Animações de saída */
+.card--fly-right { animation: flyRight 220ms ease-out forwards; }
+.card--fly-left  { animation: flyLeft  220ms ease-out forwards; }
+.card--fly-up    { animation: flyUp    220ms ease-out forwards; }
+
+@keyframes flyRight {
+  to { transform: translate(120vw, -10vh) rotate(25deg); opacity: .6; }
+}
+@keyframes flyLeft {
+  to { transform: translate(-120vw, -8vh) rotate(-25deg); opacity: .6; }
+}
+@keyframes flyUp {
+  to { transform: translate(0, -120vh) rotate(0deg) scale(0.95); opacity: .7; }
+}
+
+/* Barra de ações (botões) */
+.fs-actions {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 18px;
+  width: 100%;
+  position: relative;
+  z-index: 5;
+}
+.btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,.18);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+  background: #fff;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(0,0,0,.22); }
+.btn:active { transform: translateY(0); box-shadow: 0 6px 12px rgba(0,0,0,.18); }
+.btn--nope  { outline: 6px solid rgba(255,107,107,.18); }
+.btn--like  { outline: 6px solid rgba(46,204,113,.18); }
+.btn--super { outline: 6px solid rgba(29,161,242,.18); }
+
+/* ===================== NAVBAR ===================== */
+/* NAVBAR fixa — itens centralizados e espaçados igualmente */
+.fs-navbar{
+  position: fixed;
+  left: 50%;
+  bottom: max(12px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: min(92vw, 480px);
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 18px;
+  box-shadow: 0 10px 26px rgba(0,0,0,.13);
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-around;   /* <-- centralizados/espalhados */
+  align-items: center;
+  gap: 8px;
+  z-index: 20;
+}
+
+.nav-btn{
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: #222;
+  font: 600 12px/1 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* <-- centraliza ícone e label */
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 8px;
+  min-width: 64px;       /* largura mínima pra alinhamento bonito */
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background 120ms ease, transform 120ms ease, color 120ms ease;
+}
+.nav-btn:hover { background: rgba(0,0,0,.05); transform: translateY(-1px); }
+.nav-btn--active { color: #ff4757; }
+
+.nav-ico{
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+  display: block;
+}
+
+/* Remover qualquer estilo antigo do FAB */
+.nav-fab { display: none !important; }
+
+/* Mobile: ajuste de altura para viewports mais baixas */
+@media (max-height: 720px) {
+  .fs-container { transform: translate(-50%, -50%); } /* recentra em telas baixas */
+  .fs-stack { height: clamp(360px, 58vh, 520px); }
+}
