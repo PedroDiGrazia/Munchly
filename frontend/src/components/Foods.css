@@ -1,0 +1,69 @@
+/* src/components/Foods.css */
+.foods-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 15px;
+}
+
+.food-card {
+  width: 300px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.food-card:hover {
+  transform: scale(1.02);
+}
+
+.food-link {
+  display: inline-block;
+  margin-top: 8px;
+  color: #fff;
+  background-color: #ff4d4d;
+  padding: 6px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.food-link:hover {
+  background-color: #e60000;
+}
+
+.add-food-form {
+  width: 300px;
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.food-input {
+  width: 90%;
+  padding: 8px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.food-button {
+  padding: 8px 12px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 6px;
+  background-color: #28a745;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.food-button:hover {
+  background-color: #218838;
+}
