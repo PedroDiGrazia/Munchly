@@ -1,3 +1,4 @@
 Backend: go run main.go
 Frontend: npm start
-<img width="1620" height="815" alt="image" src="https://github.com/user-attachments/assets/1c424345-cb74-43ce-8d27-1233ebdf3ba8" />
+<img width="1620" height="815" alt="image" src="https://github.com/user-attachments/assets/9cc03000-cd3d-4db4-9e9e-193a759c4480" />
+
